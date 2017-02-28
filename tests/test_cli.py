@@ -24,7 +24,7 @@ def test_list_active_frameworks():
 def test_kill_framework_by_id():
     fake_response = """"""
     with requests_mock.mock() as m:
-        m.delete('http://fake_mesos_server/frameworks', text=fake_response)
+        m.post('http://fake_mesos_server/teardown', text=fake_response)
         mock_client = MesosHttpClient(server='http://fake_mesos_server')
         id = """62049115-5717-4ba0-8c5e-bff9321019c5-0000"""
         actual_request = mock_client.kill_framework_by_id(id)

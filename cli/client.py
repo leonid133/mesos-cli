@@ -47,6 +47,6 @@ class MesosHttpClient(object):
         return active_frameworks
 
     def kill_framework_by_id(self, framework_id=None):
-        data = '"{"id":"'+framework_id+'"}"'
-        response = self._do_request('DELETE', '/frameworks', data=data)
+        data = 'frameworkId='+framework_id
+        response = self._do_request('POST', '/teardown', data=data)
         return response

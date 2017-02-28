@@ -2,13 +2,12 @@ import argparse
 from cli import MesosHttpClient
 import ConfigParser
 
-def list(args):
-    print('List active frameworks id:')
 
-    host = ConfigSectionMap("Mesos")['host']
-    port = ConfigSectionMap("Mesos")['port']
+def list_active_frameworks(args):
+    print('List active frameworks id:')
+    host = config_section_map("Mesos")['host']
+    port = config_section_map("Mesos")['port']
     server_address = ':'.join([host.rstrip('/'), port])
-    #print server_address
     client = MesosHttpClient(server=server_address)
     request = client.list_active_frameworks()
 
@@ -18,10 +17,11 @@ def list(args):
     else:
         print "Not active frameworks"
 
-def kill(args):
+
+def kill_frameworks(args):
     print('Kill framework by id, {0}!'.format(args.id))
-    host = ConfigSectionMap("Mesos")['host']
-    port = ConfigSectionMap("Mesos")['port']
+    host = config_section_map("Mesos")['host']
+    port = config_section_map("Mesos")['port']
     server_address = ':'.join([host.rstrip('/'), port])
     client = MesosHttpClient(server=server_address)
     client.kill_framework_by_id(args.id)
@@ -30,13 +30,14 @@ parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers()
 
 list_parser = subparsers.add_parser('list')
-list_parser.set_defaults(func=list)
+list_parser.set_defaults(func=list_active_frameworks)
 
 kill_parser = subparsers.add_parser('kill')
 kill_parser.add_argument('id')
-kill_parser.set_defaults(func=kill)
+kill_parser.set_defaults(func=kill_frameworks)
 
-def ConfigSectionMap(section):
+
+def config_section_map(section):
     config = ConfigParser.ConfigParser()
     config.readfp(open('mesos_config.cfg'))
     dict1 = {}
