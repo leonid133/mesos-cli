@@ -12,8 +12,11 @@ def test_list_active_frameworks():
         m.get('http://fake_mesos_server/frameworks', text=fake_response)
         mock_client = MesosHttpClient(server='http://fake_mesos_server')
         actual_request = mock_client.list_active_frameworks()
-        for x in actual_request:
-            actual_framework_id = x['id']
+        if actual_request:
+            for x in actual_request:
+                actual_framework_id = x['id']
+        else:
+            actual_framework_id = None
         expected_framework_id = "62049115-5717-4ba0-8c5e-bff9321019c5-0000"
     assert expected_framework_id == actual_framework_id
 
