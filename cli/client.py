@@ -1,3 +1,4 @@
+import simplejson as json
 import requests
 import requests.exceptions
 
@@ -21,12 +22,24 @@ class MesosHttpClient(object):
             except requests.exceptions.RequestException as e:
                 print(str(e))
 
+        #print "status_code:", response.status_code
+        #print "text:", response.text
+
         return response
 
     def list_active_frameworks(self):
-        active_frameworks = self._do_request('GET', '/frameworks')
+        response = self._do_request('GET', '/frameworks')
+        try:
+            frameworks = json.loads(response.text)
+            active_frameworks = [x for x in frameworks['frameworks'] if x['active']]
+        except Exception:
+            active_frameworks = None
+        #print('active frameworks:')
+        #for x in active_frameworks:
+        #    print x['id'], '\r\n'
         return active_frameworks
 
     def kill_framework_by_id(self, framework_id=None):
-        data = framework_id.to_json()
-        self._do_request('DELETE', '/frameworks', data=data)
+        data = '"{"id":"'+framework_id+'"}"'
+        response = self._do_request('DELETE', '/frameworks', data=data)
+        return response
