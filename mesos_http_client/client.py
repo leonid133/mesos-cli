@@ -2,7 +2,7 @@ import simplejson as json
 import requests
 import requests.exceptions
 import time
-from .exceptions import CliError, TemporaryRedirectError, ServiceUnavailableError
+from .exceptions import CliError, ServiceUnavailableError
 
 
 class MesosHttpClient(object):
@@ -28,9 +28,6 @@ class MesosHttpClient(object):
 
         if response is None:
             raise CliError('Mesos server does not respond')
-
-        if response.status_code == 307:
-            raise TemporaryRedirectError(response)
 
         if response.status_code == 503:
             raise ServiceUnavailableError(response)

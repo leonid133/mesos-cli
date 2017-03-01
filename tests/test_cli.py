@@ -1,9 +1,9 @@
+import unittest
 import simplejson as json
 import requests_mock
 import sys
 sys.path.append('.')
-#sys.path.append('..')
-from cli import MesosHttpClient
+from mesos_http_client import MesosHttpClient
 
 
 def test_list_active_frameworks():
@@ -46,3 +46,12 @@ def test_kill_framework_by_id():
 if __name__ == '__main__':
     test_list_active_frameworks()
     test_kill_framework_by_id()
+
+
+class MesosHttpClientTest(unittest.TestCase):
+
+    def test_list_active_frameworks(self):
+        test_list_active_frameworks()
+
+    def test_kill_framework_by_id(self):
+        test_kill_framework_by_id()

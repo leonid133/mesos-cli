@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from cli import MesosHttpClient
+from mesos_http_client import MesosHttpClient
 import ConfigParser
 
 

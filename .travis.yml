@@ -2,7 +2,7 @@ language: python
 python:
   - 2.7
 install:
-- pip install requests requests_mock simplejson argparse
+- ./setup.py install
 
 script:
-- python tests/test_cli.py
+- ./setup.py test
