@@ -1,13 +1,13 @@
 [![Build Status](https://travis-ci.org/leonid133/mesos-cli.svg?branch=master)](https://travis-ci.org/leonid133/mesos-cli)
 
-##CLI for Mesos HTTP API
+## CLI for Mesos HTTP API
 
-####Features
+#### Features
 
 - List active frameworks 
 - Kill framework by id
 
-####Config
+#### Config
 
 ```
 mesos_config.cfg
@@ -18,7 +18,7 @@ port: 5050              #Mesos PORT
 
 ```
 
-####How to use
+#### How to use
 
 ```shell
 mesos-cli> ./mesos-command-line.py list
